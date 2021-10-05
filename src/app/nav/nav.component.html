@@ -1,53 +1,69 @@
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
-    <div class="container">
-      <a class="navbar-brand" href="#">Learning to code</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">Learning to code</a>
 
-    <div class="drowpdown" *ngIf="(currentUser$ | async) !== undefined" dropdown>
-    <a class="dropdown-toggle text-light" dropdownToggle>Welcome user</a>
+    <div
+      class="drowpdown"
+      *ngIf="(currentUser$ | async) !== undefined"
+      dropdown
+    >
+      <a
+        class="dropdown-toggle"
+        dropdownToggle
+        >Welcome {{ (accountService.currentUser$ | async)?.username | titlecase }}</a
+      >
 
-      <div class="dropdown-menu" *dropdownMenu>
-        <a class="dropdown-item">Edit Profile</a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" (click)="logout()">Logout</a>
-      </div>
+      <li class="nav-item dropdown">
+        <div class="dropdown-menu" *dropdownMenu>
+          <a class="dropdown-item">Edit Profile</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" (click)="logout()">Logout</a>
+        </div>
+      </li>
     </div>
 
-        <ul class="navbar-nav me-auto mb-2 mb-sm-0"*ngIf="(currentUser$ | async) !== undefined">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Matches</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Lists</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Messages</a>
-          </li>
+    <ul class="navbar-nav mr-auto mb-2 mb-sm-0">
+      <ng-container *ngIf="(currentUser$ | async) !== undefined">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/members" routerLinkActive="active"
+            >Matches</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/lists" routerLinkActive="active"
+            >Lists</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/messages" routerLinkActive="active"
+            >Messages</a
+          >
+        </li>
+      </ng-container>
+    </ul>
 
-          <!--
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
-            <ul class="dropdown-menu" aria-labelledby="dropdown03">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
-            -->
-        </ul>
-        <form *ngIf="(currentUser$ | async) === undefined" #loginForm="ngForm" class="form-inline mt-2 mt-sm-0" (ngSubmit)="login()" autocomplete="off">
-          <input 
-            name="username" 
-            [(ngModel)]="model.username" 
-            class="form-control mr-sm-2" 
-            type="text" 
-            placeholder="Username">
-          <input 
-            name="password" 
-            [(ngModel)]="model.password" 
-            class="form-control mr-sm-2" 
-            type="password" 
-            placeholder="Password">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
-        </form>
-    </div>
-  </nav>
+    <form
+      *ngIf="(currentUser$ | async) === undefined"
+      #loginForm="ngForm"
+      class="form-inline mt-2 mt-sm-0"
+      (ngSubmit)="login()"
+      autocomplete="off"
+    >
+      <input
+        name="username"
+        [(ngModel)]="model.username"
+        class="form-control mr-sm-2"
+        type="text"
+        placeholder="Username"
+      />
+      <input
+        name="password"
+        [(ngModel)]="model.password"
+        class="form-control mr-sm-2"
+        type="password"
+        placeholder="Password"
+      />
+      <button class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
+    </form>
+  </div>
+</nav>
