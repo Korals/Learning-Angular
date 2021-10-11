@@ -1,5 +1,8 @@
-﻿using LCode.Data;
+﻿using AutoMapper;
+using LCode.Data;
+using LCode.Dto;
 using LCode.Entity;
+using LCode.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,18 +13,28 @@ using System.Threading.Tasks;
 
 namespace LCode.Controllers
 {
+    [AllowAnonymous]
     public class UsersController : BaseApiController
     {
-        private readonly Context _context;
+        private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
 
-        public UsersController(Context context) => _context = context;
+        public UsersController(IUserRepository userRepository, IMapper mapper)
+        {
+            _userRepository = userRepository;
+            _mapper = mapper;
+        }
 
-        [AllowAnonymous]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AppUser>>> GetUsersAsync() => await _context.Users.ToListAsync();
+        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsersAsync()
+        {
+            return Ok(await _userRepository.GetMembersAsync());
+        }
 
-        [Authorize]
-        [HttpGet("{id}")]
-        public async Task<ActionResult<AppUser>> GetUserByIdAsync(int id) => await _context.Users.FindAsync(id);
+        [HttpGet("{username}")]
+        public async Task<ActionResult<MemberDto>> GetUser(string username)
+        {
+            return await _userRepository.GetMemberByUsernameAsync(username);
+        }
     }
 }
