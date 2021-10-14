@@ -13,6 +13,7 @@ import { AccountService } from '../_services/account.service';
 export class NavComponent implements OnInit {
   model: any = {};
   currentUser$ = this.accountService.currentUser$;
+  user!: User;
 
   constructor(public accountService: AccountService, 
       private router: Router, 

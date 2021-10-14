@@ -4,22 +4,21 @@
 
     <div
       class="drowpdown"
-      *ngIf="(currentUser$ | async) !== undefined"
+      *ngIf="((accountService.currentUser$ | async) !== undefined) as User"
       dropdown
     >
+    <img src="{{user.photoUrl}}" alt="{{user.username}}">
       <a
-        class="dropdown-toggle"
+        class="dropdown-toggle ml-2"
         dropdownToggle
         >Welcome {{ (accountService.currentUser$ | async)?.username | titlecase }}</a
       >
 
-      <li class="nav-item dropdown">
-        <div class="dropdown-menu" *dropdownMenu>
+        <div class="dropdown-menu mt-3" *dropdownMenu>
           <a routerLink='/member/edit' class="dropdown-item">Edit Profile</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" (click)="logout()">Logout</a>
         </div>
-      </li>
     </div>
 
     <ul class="navbar-nav mr-auto mb-2 mb-sm-0">
