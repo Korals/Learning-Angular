@@ -19,7 +19,6 @@ export class AccountService {
     return this.http.post<User>(this.baseUrl + `Account/Login`, model).pipe(
       map((response: User) => {
         const user = response;
-
         if (user){
           this.setCurrentUser(user);
         }
@@ -30,8 +29,7 @@ export class AccountService {
   register(model: any){
     return this.http.post<User>(this.baseUrl + 'Account/Register', model).pipe(
       map((user: User) =>{
-        if(user){
-          this.setCurrentUser(user);
+        if(user){this.setCurrentUser(user);
         }
       })
     );
