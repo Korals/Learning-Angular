@@ -70,7 +70,7 @@ namespace LCode.Services
 
         public async Task<bool> SaveAllAsync()
         {
-            return await _context.SaveChangesAsync() > 0;
+            return await _context.SaveChangesAsync() > 0 ? true : false;
         }
 
         public void Update(AppUser user)
