@@ -16,6 +16,7 @@ namespace LCode.Extensions
                 options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IPhotoService, PhotoService>();
+            services.AddScoped<LogUserActivity>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
 
