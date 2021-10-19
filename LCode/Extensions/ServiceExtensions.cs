@@ -15,6 +15,8 @@ namespace LCode.Extensions
             services.AddDbContext<Context>(options =>
                 options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<ILikesReposiroty, LikesRepository>();
+            services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<IPhotoService, PhotoService>();
             services.AddScoped<LogUserActivity>();
             services.AddScoped<IUserRepository, UserRepository>();
