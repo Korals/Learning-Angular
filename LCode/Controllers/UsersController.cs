@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using LCode.Data;
 using LCode.Dto;
 using LCode.Entity;
 using LCode.Extensions;
@@ -8,11 +7,8 @@ using LCode.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace LCode.Controllers
@@ -133,5 +129,6 @@ namespace LCode.Controllers
 
             return BadRequest("Failed to remove photo");
         }
+
     }
 }
