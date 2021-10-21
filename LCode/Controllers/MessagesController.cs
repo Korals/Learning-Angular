@@ -34,16 +34,16 @@ namespace LCode.Controllers
 
             if (username == createMessageDto.RecipientUsername.ToLower()) return BadRequest("Find some friends to message");
 
-            var sernder = await _userRepository.GetUserByUsernameAsync(username);
+            var sender = await _userRepository.GetUserByUsernameAsync(username);
             var recipient = await _userRepository.GetUserByUsernameAsync(createMessageDto.RecipientUsername);
 
             if (recipient == null) return NotFound();
 
             var message = new Message
             {
-                Sender = sernder,
+                Sender = sender,
                 Recipient = recipient,
-                SenderUsername = sernder.UserName,
+                SenderUsername = sender.UserName,
                 RecipientUsername = recipient.UserName,
                 Content = createMessageDto.Content
             };

@@ -2,6 +2,7 @@ using LCode.Data;
 using LCode.Extensions;
 using LCode.Middleware;
 using LCode.Services;
+using LCode.SignalR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -43,6 +44,7 @@ namespace LCode
             services.AddApplicationServices(Configuration);
             services.AddCors();
             services.AddIdentityServices(Configuration);
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,6 +66,7 @@ namespace LCode
 
             app.UseCors(p => p.AllowAnyHeader()
                 .AllowAnyMethod()
+                .AllowCredentials()
                 .WithOrigins("https://localhost:4200"));
 
             app.UseAuthentication();
@@ -73,6 +76,8 @@ namespace LCode
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<PresenceHub>("hubs/presence");
+                endpoints.MapHub<MessageHub>("hubs/message");
             });
         }
     }
