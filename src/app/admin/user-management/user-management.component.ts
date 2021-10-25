@@ -36,7 +36,7 @@ export class UserManagementComponent implements OnInit {
     this.bsModalRef = this.modalService.show(RolesModalComponent, config);
     this.bsModalRef.content.updateSelectedRoles.subscribe((values: any[]) => {
       const rolesToUpdate = {
-        roles: [...values.filter(el => el.checked === true).map(el => el.name)]
+        roles: [...values.filter((el: { checked: boolean; }) => el.checked === true).map((el: { name: any; }) => el.name)]
       };
       if (rolesToUpdate){
         this.adminService.updateUserRoles(user.username, rolesToUpdate.roles).subscribe(() => {

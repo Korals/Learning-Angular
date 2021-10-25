@@ -40,7 +40,7 @@
     </div>
 
     <form
-      *ngIf="(accountService.currentUser$ | async) === undefined"
+      *ngIf="(accountService.currentUser$ | async) === undefined || (accountService.currentUser$ | async) === null"
       #loginForm="ngForm"
       class="form-inline mt-2 mt-sm-0"
       (ngSubmit)="login()"
