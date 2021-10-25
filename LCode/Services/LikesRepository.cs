@@ -11,14 +11,13 @@ using System.Threading.Tasks;
 
 namespace LCode.Services
 {
-    public interface ILikesReposiroty
+    public interface ILikesRepository
     {
-        Task<bool> SaveAllAsync();
         Task<UserLike> GetUserLike(int sourceUserId, int likedUserId);
         Task<AppUser> GetUserWithLikes(int userId);
         Task<PagedList<LikeDto>> GetUserLikes(LikesParams likesParams);
     }
-    public class LikesRepository : ILikesReposiroty
+    public class LikesRepository : ILikesRepository
     {
         private readonly Context _context;
 
@@ -69,9 +68,5 @@ namespace LCode.Services
                 .FirstOrDefaultAsync(x => x.Id == userId);
         }
 
-        public async Task<bool> SaveAllAsync()
-        {
-            return await _context.SaveChangesAsync() > 0 ? true : false;
-        }
     }
 }
